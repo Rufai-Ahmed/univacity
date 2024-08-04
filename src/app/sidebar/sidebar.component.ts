@@ -1,7 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Output } from '@angular/core';
-import { FilterComponentComponent } from '../filter-component/filter-component.component';
+import { FilterService } from '../services/filter-service.service';
 import { iFilter } from '../../../interfaces';
+import { FilterComponentComponent } from '../filter-component/filter-component.component';
 
 @Component({
   selector: 'app-sidebar',
@@ -23,7 +24,7 @@ export class SidebarComponent {
   institutes: string[] = [
     'Columbia (23)',
     'Brown University (11)',
-    'European Institute of Innov... (51)',
+    'European Institute of Innovation (51)',
     'Harvard University (20)',
     'New York University (12)',
   ];
@@ -48,44 +49,25 @@ export class SidebarComponent {
     '3 - 5 Years (182)',
   ];
 
-  @Output() filtersChanged = new EventEmitter<string[]>();
-
   filterData: iFilter[] = [
-    {
-      data: this.countries,
-      name: 'Country',
-      search: 'countries',
-    },
-    {
-      data: this.institutes,
-      name: 'Institutes',
-      search: 'institutes',
-    },
-    {
-      data: this.languages,
-      name: 'Languages',
-      search: 'languages',
-    },
-    {
-      data: this.levels,
-      name: 'Level',
-    },
-    {
-      data: this.type,
-      name: 'Type',
-    },
-    {
-      data: this.duration,
-      name: 'Duration',
-    },
+    { data: this.countries, name: 'Country', search: 'countries' },
+    { data: this.institutes, name: 'Institutes', search: 'institutes' },
+    { data: this.languages, name: 'Languages', search: 'languages' },
+    { data: this.levels, name: 'Level' },
+    { data: this.type, name: 'Type' },
+    { data: this.duration, name: 'Duration' },
   ];
 
   sliderRange: number[] = [5000, 58000];
   minPrice: number = 5000;
   maxPrice: number = 58000;
 
-  onSliderChange(event: any) {
-    this.minPrice = this.sliderRange[0];
-    this.maxPrice = this.sliderRange[1];
+  selectedFilter: string = '';
+
+  constructor(private filterService: FilterService) {}
+
+  setFilter(item: string) {
+    this.selectedFilter = item;
+    this.filterService.setFilter(item);
   }
 }

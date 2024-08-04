@@ -18,7 +18,9 @@
         <div *ngFor="let item of sideBarItem" class="flex items-center gap-4">
           <input
             type="checkbox"
-            [id]="item"
+            [id]="item.split('(')[0].trim()"
+            [checked]="selectedFilter === item.split('(')[0].trim()"
+            (change)="setFilter(item.split('(')[0].trim())"
             class="dark:bg-gray-700 dark:border-gray-600"
           />
           <label [for]="item" class="dark:text-gray-300">{{ item }}</label>
@@ -51,13 +53,13 @@
         class="flex items-center font-medium justify-between dark:text-gray-200"
       >
         <p>
-          <span class="text-gray-400 dark:text-gray-500">$ </span
-          >{{ minPrice.toLocaleString() }}
+          <span class="text-gray-400 dark:text-gray-500">$ </span>
+          {{ minPrice.toLocaleString() }}
         </p>
         <div class="w-[15px] bg-gray-400 h-[2px] dark:bg-gray-600"></div>
         <p>
-          <span class="text-gray-400 dark:text-gray-500">$ </span
-          >{{ maxPrice.toLocaleString() }}
+          <span class="text-gray-400 dark:text-gray-500">$ </span>
+          {{ maxPrice.toLocaleString() }}
         </p>
       </div>
     </div>

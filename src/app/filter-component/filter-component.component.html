@@ -28,13 +28,16 @@
     >
       <input
         type="checkbox"
-        [checked]="item === 'Associate (50)'"
-        [id]="item"
+        [checked]="isChecked(item.split('(')[0].trim())"
+        [id]="item.split('(')[0].trim()"
+        (change)="toggleItem(item.split('(')[0].trim())"
         class="dark:checked:bg-dark-checkbox dark:bg-transparent dark:accent-[#184EC9] dark:border-[#C4C9D4]"
       />
-      <label [for]="item" class="truncate dark:text-dark-text">{{
-        item
-      }}</label>
+      <label
+        [for]="item.split('(')[0].trim()"
+        class="truncate dark:text-dark-text"
+        >{{ item }}</label
+      >
     </div>
 
     <div

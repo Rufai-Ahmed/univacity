@@ -1,9 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { AppHeadingComponent } from '../app-heading/app-heading.component';
 import { ContentCardComponent } from '../content-card/content-card.component';
 import { CustomPaginationComponent } from '../custom-pagination/custom-pagination.component';
 import data from '../../../public/assets/data/data.json';
+import { FilterService } from '../services/filter-service.service';
+import { debounceTime } from 'rxjs';
 
 @Component({
   selector: 'app-content',
@@ -24,18 +26,35 @@ export class ContentComponent implements OnInit {
   currentPage = 1;
   pageSize = 12;
 
+  @Input() search: (term: string) => void = (term: string) => {
+    console.log('Search term:', term);
+  };
+
+  constructor(private filterService: FilterService) {}
+
   ngOnInit() {
-    this.filteredData = this.dataSource;
+    this.filterService.filter$.subscribe((filter) => {
+      this.onSearch(filter);
+
+      this.filterService.filter$.pipe(debounceTime(300)).subscribe((filter) => {
+        this.onSearch(filter);
+      });
+      this.updatePagedData();
+    });
     this.updatePagedData();
   }
 
   onSearch(searchTerm: string) {
     const lowerCaseTerm = searchTerm.toLowerCase();
     this.filteredData = this.dataSource.filter(
-      (card) =>
+      (card: Card) =>
         card.school.toLowerCase().includes(lowerCaseTerm) ||
         card.cardName.toLowerCase().includes(lowerCaseTerm) ||
-        card.country.toLowerCase().includes(lowerCaseTerm)
+        card.country.toLowerCase().includes(lowerCaseTerm) ||
+        card.learning.toLowerCase().includes(lowerCaseTerm) ||
+        card.date.toLowerCase().includes(lowerCaseTerm) ||
+        card.amount.toLowerCase().includes(lowerCaseTerm) ||
+        card.duration.toLowerCase().includes(lowerCaseTerm)
     );
     this.currentPage = 1;
     this.updatePagedData();
