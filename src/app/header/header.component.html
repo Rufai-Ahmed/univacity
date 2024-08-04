@@ -1,0 +1,75 @@
+<header class="z-50 dark:bg-dark-background-one">
+  <div
+    class="h-[72px] flex items-center px-4 border-b z-50 dark:border-dark-background"
+  >
+    <div class="container mx-auto flex justify-between items-center">
+      <div class="lg:hidden text-[20px]">
+        <i (click)="toggleMobileSider()" class="fa fa-bars"></i>
+      </div>
+
+      <div class="text-xl dark:block hidden font-bold cursor-pointer">
+        <a routerLink="/">
+          <img
+            src="/assets/images/logo-white.png"
+            alt="Univacity Logo"
+            class="h-8"
+          />
+        </a>
+      </div>
+      <div class="text-xl font-bold cursor-pointer dark:hidden">
+        <a routerLink="/">
+          <img src="/assets/images/logo.png" alt="Univacity Logo" class="h-8" />
+        </a>
+      </div>
+
+      <nav class="hidden lg:block">
+        <ul class="flex gap-[40px] font-[600] duration-300">
+          <li *ngFor="let item of navItems">
+            <a
+              [routerLink]="item.path"
+              class="hover:underline flex duration-300 text-[16px] items-center gap-2 group dark:text-dark-text hover:text-blue-500"
+            >
+              {{ item.label }}
+              <i class="fa-solid fa-angle-down group-hover:no-underline"></i>
+            </a>
+          </li>
+        </ul>
+      </nav>
+
+      <div class="flex dark:text-light-background items-center gap-8">
+        <i class="fa-solid fa-magnifying-glass text-[23px] hidden md:block"></i>
+        <div class="relative hidden md:block">
+          <i class="fa-solid fa-message text-[26px]"></i>
+          <div
+            class="bg-red-600 px-[6px] text-[8px] font-bold rounded-full absolute -top-3 -right-3 py-1 z-10 text-white border-white border-[2px]"
+          >
+            99+
+          </div>
+        </div>
+
+        <div
+          class="flex items-center gap-2 hover:bg-blue-100 duration-300 px-2 py-1 rounded-[30px] cursor-pointer"
+        >
+          <img src="/assets/images/person.png" alt="User" class="size-[32px]" />
+          <i class="fa-solid fa-angle-down text-[10px]"></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div
+    class="w-full lg:flex h-[48px] hidden items-center font-medium justify-center shadow-sm dark:bg-dark-background-one"
+  >
+    <nav>
+      <ul class="flex items-center gap-8">
+        <li
+          *ngFor="let i of otherItems"
+          class="capitalize cursor-pointer flex items-center gap-2 dark:text-[#C4C9D4]"
+        >
+          <img [src]="i.icon" alt="" class="size-6" />
+          {{ i.label }}
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>

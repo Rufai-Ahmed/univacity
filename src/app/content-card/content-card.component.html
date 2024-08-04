@@ -1,0 +1,128 @@
+<div
+  class="w-full cursor-pointer hover:scale-[.98] duration-300 min-h-[429px] z-30 pb-[16px] bg-white dark:bg-[#292F3D] border dark:border-dark-background rounded-[16px] overflow-hidden"
+>
+  <div
+    class="h-[230px] z-30 bg-cover bg-no-repeat relative"
+    [ngClass]="{
+      'bg-content_one': card?.image?.includes('one'),
+      'bg-content_two': card?.image?.includes('two')
+    }"
+  >
+    <div class="w-full flex items-center pt-5 justify-center">
+      <div
+        class="w-[243px] rounded-[8px] bg-white py-[6px] px-[12px] flex items-center justify-between dark:bg-[#292F3D]"
+      >
+        <img
+          src="assets/images/harvard.png"
+          alt="Harvard Logo"
+          class="w-[16px] h-auto"
+        />
+
+        <p class="text-[14px] dark:text-[#EDEFF2]">{{ card?.school! }}</p>
+        <img
+          src="assets/images/verified.png"
+          alt="Verified Icon"
+          class="w-[14px] h-auto"
+          [ngClass]="{ 'opacity-0': !card?.verified }"
+        />
+
+        <div
+          class="w-[36px] h-[32px] flex items-center justify-center text-[16px] bg-white dark:bg-dark-background absolute bottom-6 rounded-[8px] text-black dark:text-[#EDEFF2] duration-300 hover:text-blue-600 hover:scale-90 cursor-pointer right-6"
+          (click)="changeToggle()"
+        >
+          <i
+            class="fa-solid fa-heart"
+            [ngClass]="{
+              'text-black dark:text-[#EDEFF2]': !toggle,
+              'text-red-600 dark:text-[#F64444]': toggle
+            }"
+          ></i>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="h-max p-4 space-y-[6px] dark:bg-[#292F3D] dark:text-[#EDEFF2]">
+    <div class="flex gap-2 items-center">
+      <img
+        [src]="
+          card?.country === 'SPAIN'
+            ? 'assets/images/spain.png'
+            : card?.country === 'NIGERIA'
+            ? 'assets/images/nigeria.png'
+            : 'assets/images/america.png'
+        "
+        class="size-[16px]"
+        alt=""
+      />
+      <p class="text-[14px] dark:text-[#EDEFF2]">{{ card?.country }}</p>
+    </div>
+
+    <p
+      class="text-[18px] font-semibold leading-[26px] 2xl:text-[16px] dark:text-[#FFFFFF]"
+    >
+      {{ card?.cardName }}
+    </p>
+
+    <div class="flex items-center justify-between">
+      <div *ngIf="card?.learning === 'Hybrid'" class="flex items-center gap-2">
+        <div class="bg-[#9B51E0] rounded-full size-[12px]"></div>
+        <p class="text-[14px] text-gray-500 dark:text-gray-100">Hybrid</p>
+      </div>
+      <div
+        *ngIf="card?.learning === 'E-learning'"
+        class="flex items-center gap-2"
+      >
+        <div class="bg-[#56CCF2] rounded-full size-[12px]"></div>
+        <p class="text-[14px] text-gray-500 dark:text-gray-100">E-learning</p>
+      </div>
+
+      <div class="flex items-center gap-2">
+        <img
+          [src]="
+            card?.available
+              ? 'assets/images/date.png'
+              : 'assets/images/unavailable.png'
+          "
+          alt=""
+          class="w-[12px] h-auto"
+        />
+        <p class="text-[14px] text-gray-500 dark:text-gray-100">
+          {{ card?.date }}
+        </p>
+      </div>
+    </div>
+
+    <div class="items-center gap-3 flex w-fit">
+      <div
+        *ngFor="let i of card?.allCountry; let last = last"
+        class="flex items-center gap-2 w-full"
+      >
+        <img
+          [src]="
+            i === 'ENG'
+              ? 'assets/images/england.png'
+              : i === 'ESP'
+              ? 'assets/images/spain.png'
+              : 'assets/images/china.png'
+          "
+          alt=""
+          class="w-[12px] h-auto"
+        />
+
+        <p class="text-[14px] text-gray-500 dark:text-gray-100">
+          {{ i }}
+        </p>
+        <i *ngIf="!last" class="fa-solid fa-circle text-[2px]"></i>
+      </div>
+    </div>
+
+    <p class="text-gray-500 text-[14px] dark:text-gray-100">
+      {{ card?.duration }}
+    </p>
+
+    <p class="text-[12px] dark:text-[#EDEFF2]">
+      <b class="text-[16px] font-semibold">${{ card?.amount }}/</b>year
+    </p>
+  </div>
+</div>

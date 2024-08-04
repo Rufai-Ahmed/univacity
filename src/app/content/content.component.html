@@ -1,0 +1,28 @@
+<main
+  class="flex flex-col space-y-6 dark:bg-dark-background dark:text-dark-text"
+>
+  <app-app-heading [search]="onSearch.bind(this)"></app-app-heading>
+
+  <div
+    class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-2 xl:grid-cols-3 2xl:grid-cols-4 gap-10"
+  >
+    <app-content-card *ngFor="let card of pagedData" [card]="card">
+    </app-content-card>
+    <ng-container *ngIf="pagedData.length === 0">
+      <div
+        class="text-center font-bold text-red-600 text-[20px] dark:text-red-400"
+      >
+        Not Found
+      </div>
+    </ng-container>
+  </div>
+
+  <div class="flex justify-center">
+    <app-custom-pagination
+      [totalItems]="dataSource.length"
+      [pageSize]="pageSize"
+      [currentPage]="currentPage"
+      (pageChange)="onPageChange($event)"
+    ></app-custom-pagination>
+  </div>
+</main>

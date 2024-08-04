@@ -1,0 +1,39 @@
+<div
+  class="flex items-center font-[600] text-[10px] md:text-[16px] space-x-4 dark:text-light-text"
+>
+  <button
+    (click)="onPageChange(currentPage - 1)"
+    [disabled]="currentPage === 1"
+    class="px-4 py-2 border rounded-l-[8px] text-black dark:text-light-text border-[#B0B6C5] dark:border-[#292F3D] hover:bg-gray-100 dark:hover:bg-dark-background-one bg-[#C5CBDA] dark:bg-[#191C24] disabled:opacity-50 duration-300 cursor-pointer"
+  >
+    <i class="fa-solid fa-angle-left"></i>
+  </button>
+
+  <ng-container *ngFor="let page of pages">
+    <ng-container *ngIf="page === -1">
+      <span class="px-4 py-2 text-gray-500 dark:text-gray-400">...</span>
+    </ng-container>
+    <button
+      *ngIf="page !== -1"
+      (click)="onPageChange(+page)"
+      [ngClass]="{
+        'text-black dark:text-white': page === currentPage,
+        'text-gray-400 dark:text-gray-500': page !== currentPage,
+        'border-gray-300 dark:border-dark-background': page !== currentPage,
+        underline: page === currentPage && !isDarkMode,
+        'no-underline': page === currentPage && isDarkMode
+      }"
+      class="py-2 rounded-lg hover:text-black dark:hover:text-white"
+    >
+      {{ page }}
+    </button>
+  </ng-container>
+
+  <button
+    (click)="onPageChange(currentPage + 1)"
+    [disabled]="currentPage === totalPages"
+    class="px-4 py-2 border rounded-r-[8px] text-gray-700 dark:text-light-text border-[#C5CBDA] dark:border-[#C4C9D4] bg-[#F7F9FD] dark:bg-dark-background disabled:opacity-50 cursor-pointer duration-300 hover:bg-gray-100 dark:hover:bg-dark-background-one"
+  >
+    <i class="fa-solid fa-angle-right"></i>
+  </button>
+</div>

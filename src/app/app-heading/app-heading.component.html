@@ -1,0 +1,63 @@
+<section
+  class="space-y-[24px] mt-[65px] md:mt-[40px] lg:mt-[120px] dark:bg-dark-background dark:text-light-text"
+>
+  <div class="flex items-center justify-between flex-wrap md:flex-nowrap">
+    <div class="flex items-center">
+      <h3
+        class="text-[24px] font-[600] pr-[24px] md:border-r da dark:border-light-background"
+      >
+        Programs
+      </h3>
+
+      <p
+        class="text-[16px] px-[14px] border-r hidden md:block dark:border-light-background"
+      >
+        Saved programs
+        <span class="text-gray-500 dark:text-gray-400">(89)</span>
+      </p>
+      <p class="text-[16px] pl-[14px] hidden md:block">
+        Applied <span class="text-gray-500 dark:text-gray-400">(29)</span>
+      </p>
+    </div>
+
+    <div class="flex items-center gap-[16px]">
+      <p>View</p>
+      <img src="/assets/images/grid.png" class="size-[24px]" alt="" />
+
+      <i class="fa-solid fa-list"></i>
+    </div>
+  </div>
+
+  <div
+    class="flex items-center space-y-4 md:space-y-0 justify-between md:flex-nowrap flex-wrap"
+  >
+    <div
+      class="w-full md:w-[400px] xl:w-[480px] h-[46px] border rounded-[10px] pl-9 relative flex items-center z-0 bg-white dark:bg-[#292F3D] dark:border-[#8F95A3]"
+    >
+      <i
+        class="fa-solid absolute left-3 fa-magnifying-glass dark:text-dark-text"
+      ></i>
+      <input
+        type="search"
+        name="programs"
+        (input)="onSearch($event)"
+        placeholder="Search for programs"
+        class="outline-none placeholder:text-black dark:placeholder:text-dark-text placeholder:text-[14px] flex lg:flex-grow h-full bg-transparent"
+      />
+    </div>
+
+    <div class="flex items-center gap-[12px]">
+      <p>Sort by:</p>
+
+      <select
+        class="py-[8px] pr-[16px] pl-[16px] border text-[16px] rounded-[8px] dark:bg-[#292F3D] dark:text-[#769BEF] dark:border-[#DFE3EC]"
+        name=""
+        id=""
+      >
+        <option value="popularity">Popularity</option>
+        <option value="popularity">A - Z</option>
+        <option value="popularity">Category</option>
+      </select>
+    </div>
+  </div>
+</section>

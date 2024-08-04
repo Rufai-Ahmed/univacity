@@ -1,0 +1,68 @@
+<aside
+  [class]="{ '-left-[260px]': !toggle, 'left-0': toggle }"
+  class="w-[260px] duration-300 bottom-0 fixed overflow-y-auto top-0 text-[14px] font-medium h-screen lg:hidden bg-white dark:bg-dark-background text-gray-800 dark:text-dark-text"
+>
+  <div class="px-4 pt-8 overflow-y-auto">
+    <h2
+      class="text-[24px] font-[600] w-full border-b pb-4 dark:border-dark-border"
+    >
+      Filter by
+    </h2>
+
+    <div class="mt-5 border-b pb-5 dark:border-dark-border">
+      <div class="flex items-center mb-4 justify-between">
+        <p class="font-[600] text-[18px] dark:text-dark-heading">Attendance</p>
+        <i class="fa-solid fa-angle-up text-[12px] dark:text-dark-icon"></i>
+      </div>
+
+      <div class="space-y-1">
+        <div *ngFor="let item of sideBarItem" class="flex items-center gap-4">
+          <input type="checkbox" [id]="item" class="dark:bg-dark-checkbox" />
+          <label [for]="item" class="dark:text-dark-text">
+            {{ item }}
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="mt-5 border-b pb-5 space-y-5 dark:border-dark-border">
+      <div class="flex items-center justify-between">
+        <p class="font-[600] text-[18px] dark:text-dark-heading">Tuition Fee</p>
+        <i class="fa-solid fa-angle-up text-[12px] dark:text-dark-icon"></i>
+      </div>
+
+      <div
+        class="relative w-full flex items-center justify-center h-[3px] rounded-md bg-gray-400 dark:bg-dark-border"
+      >
+        <div class="h-full bg-[#f64444] w-[80%] relative">
+          <div
+            class="absolute size-5 bg-[#f64444] rounded-full z-20 left-0 cursor-pointer -bottom-[9px]"
+          ></div>
+          <div
+            class="absolute size-5 bg-[#f64444] rounded-full z-20 right-0 cursor-pointer -bottom-[9px]"
+          ></div>
+        </div>
+      </div>
+
+      <div
+        class="flex items-center font-medium justify-between dark:text-dark-text"
+      >
+        <p><span class="text-gray-400 dark:text-gray-500">$</span>5,000</p>
+        <div class="w-[15px] bg-gray-400 h-[2px] dark:bg-dark-border"></div>
+        <p><span class="text-gray-400 dark:text-gray-500">$</span>58,000</p>
+      </div>
+    </div>
+
+    <app-filter-component
+      *ngFor="let i of filterData"
+      [data]="i.data!"
+      [name]="i.name!"
+      [search]="i.search!"
+    ></app-filter-component>
+  </div>
+
+  <i
+    (click)="toggleSideBar()"
+    class="fa-solid fa-xmark absolute top-10 right-4 text-[20px] dark:text-dark-icon"
+  ></i>
+</aside>
