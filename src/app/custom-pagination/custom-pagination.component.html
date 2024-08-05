@@ -10,18 +10,18 @@
   </button>
 
   <ng-container *ngFor="let page of pages">
-    <ng-container *ngIf="page === -1">
-      <span class="px-4 py-2 text-gray-500 dark:text-gray-400">...</span>
+    <ng-container *ngIf="page === '...'">
+      <span class="px-1 py-2 text-gray-500 dark:text-gray-400">...</span>
     </ng-container>
     <button
-      *ngIf="page !== -1"
-      (click)="onPageChange(+page)"
+      *ngIf="isNumber(page)"
+      (click)="onPageChange(page)"
       [ngClass]="{
         'text-black dark:text-white': page === currentPage,
         'text-gray-400 dark:text-gray-500': page !== currentPage,
         'border-gray-300 dark:border-dark-background': page !== currentPage,
-        underline: page === currentPage && !isDarkMode,
-        'no-underline': page === currentPage && isDarkMode
+        underline: page === currentPage,
+        'dark:no-underline': page === currentPage
       }"
       class="py-2 rounded-lg hover:text-black dark:hover:text-white"
     >
