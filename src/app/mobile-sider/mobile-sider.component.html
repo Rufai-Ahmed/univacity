@@ -39,25 +39,43 @@
         <i class="fa-solid fa-angle-up text-[12px] dark:text-dark-icon"></i>
       </div>
 
-      <div
-        class="relative w-full flex items-center justify-center h-[3px] rounded-md bg-gray-400 dark:bg-dark-border"
-      >
-        <div class="h-full bg-[#f64444] w-[80%] relative">
-          <div
-            class="absolute size-5 bg-[#f64444] rounded-full z-20 left-0 cursor-pointer -bottom-[9px]"
-          ></div>
-          <div
-            class="absolute size-5 bg-[#f64444] rounded-full z-20 right-0 cursor-pointer -bottom-[9px]"
-          ></div>
-        </div>
+      <div class="custom-slider">
+        <div class="slider-track"></div>
+        <div
+          class="slider-range"
+          [style.left.%]="getMinPercent()"
+          [style.width.%]="getRangeWidth()"
+        ></div>
+        <input
+          type="range"
+          min="100"
+          [max]="max"
+          [(ngModel)]="minValue"
+          (ngModelChange)="onMinValueChange()"
+          class="slider-thumb slider-thumb-min"
+        />
+        <input
+          type="range"
+          min="0"
+          [max]="max"
+          [(ngModel)]="maxValue"
+          (ngModelChange)="onMaxValueChange()"
+          class="slider-thumb slider-thumb-max"
+        />
       </div>
 
       <div
-        class="flex items-center font-medium justify-between dark:text-dark-text"
+        class="flex items-center font-medium justify-between px-4 dark:text-dark-text"
       >
-        <p><span class="text-gray-400 dark:text-gray-500">$</span>5,000</p>
+        <p>
+          <span class="text-gray-400 dark:text-light-text">$ </span>
+          {{ minValue.toLocaleString() }}
+        </p>
         <div class="w-[15px] bg-gray-400 h-[2px] dark:bg-dark-border"></div>
-        <p><span class="text-gray-400 dark:text-gray-500">$</span>58,000</p>
+        <p>
+          <span class="text-gray-400 dark:text-light-text">$ </span>
+          {{ maxValue.toLocaleString() }}
+        </p>
       </div>
     </div>
 

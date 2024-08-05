@@ -9,7 +9,12 @@ export class SidebarToggleService {
 
   toggle$ = this.toggleSource.asObservable();
 
-  toggleSidebar(value?: boolean) {
-    this.toggleSource.next(value ? value : !this.toggleSource.value);
+  toggleSidebarOff() {
+    this.toggleSource.next(false);
+  }
+  toggleSidebar(visible?: boolean) {
+    this.toggleSource.next(
+      visible !== undefined ? visible : !this.toggleSource.value
+    );
   }
 }

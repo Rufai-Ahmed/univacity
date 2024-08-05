@@ -1,30 +1,79 @@
 import { CommonModule } from '@angular/common';
-import { Component, OnInit } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { FilterComponentComponent } from '../filter-component/filter-component.component';
 import { iFilter } from '../../../interfaces';
 import { SidebarToggleService } from '../services/sidebar-toggle.service';
 import { FilterService } from '../services/filter-service.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-mobile-sider',
   standalone: true,
-  imports: [CommonModule, FilterComponentComponent],
+  imports: [CommonModule, FilterComponentComponent, FormsModule],
   templateUrl: './mobile-sider.component.html',
-  styleUrl: './mobile-sider.component.scss',
+  styleUrls: ['./mobile-sider.component.scss'],
 })
 export class MobileSiderComponent implements OnInit {
-  toggle: boolean = false;
+  value: { min: number; max: number } = { min: 5000, max: 5800 };
 
-  constructor(
-    private mobileSiderToggle: SidebarToggleService,
-    private filterService: FilterService
-  ) {}
+  toggle: boolean = false;
+  @Input() min: number = 0;
+  @Input() max: number = 10000;
+  @Input() minValue: number = 5000;
+  @Input() maxValue: number = 5800;
+
+  @Output() minValueChange = new EventEmitter<number>();
+  @Output() maxValueChange = new EventEmitter<number>();
+
+  onMinValueChange() {
+    this.minValueChange.emit(this.minValue);
+  }
+
+  onMaxValueChange() {
+    this.maxValueChange.emit(this.maxValue);
+  }
 
   ngOnInit() {
     this.mobileSiderToggle.toggle$.subscribe(
       (isOpen) => (this.toggle = isOpen)
     );
+
+    this.calculateDefaultValues();
   }
+
+  calculateDefaultValues() {
+    const trackWidth = this.max - this.min;
+
+    this.minValue = Math.round(this.min + 0.15 * trackWidth);
+    this.maxValue = Math.round(this.max - 0.15 * trackWidth);
+
+    if (this.minValue > this.maxValue) {
+      this.minValue = this.maxValue;
+    }
+
+    this.value.min = this.minValue;
+    this.value.max = this.maxValue;
+  }
+
+  getMinPercent(): number {
+    return ((this.minValue - this.min) / (this.max - this.min)) * 100;
+  }
+
+  getRangeWidth(): number {
+    return ((this.maxValue - this.minValue) / (this.max - this.min)) * 100;
+  }
+
+  constructor(
+    private mobileSiderToggle: SidebarToggleService,
+    private filterService: FilterService
+  ) {}
 
   selectedFilter: string = '';
 
@@ -102,4 +151,9 @@ export class MobileSiderComponent implements OnInit {
       name: 'Duration',
     },
   ];
+
+  @HostListener('click', ['$event'])
+  onClick(event: Event) {
+    event.stopPropagation();
+  }
 }

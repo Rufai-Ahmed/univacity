@@ -1,17 +1,51 @@
 import { CommonModule } from '@angular/common';
-import { Component, EventEmitter, Output } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FilterService } from '../services/filter-service.service';
 import { iFilter } from '../../../interfaces';
 import { FilterComponentComponent } from '../filter-component/filter-component.component';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
-  imports: [CommonModule, FilterComponentComponent],
+  imports: [CommonModule, FilterComponentComponent, FormsModule],
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
+  // Default slider range
+  @Input() min: number = 5000;
+  @Input() max: number = 58000;
+
+  // Initial thumb values
+  minValue: number = 5000;
+  maxValue: number = 58000;
+
+  @Output() minValueChange = new EventEmitter<number>();
+  @Output() maxValueChange = new EventEmitter<number>();
+
+  onMinValueChange() {
+    this.minValueChange.emit(this.minValue);
+  }
+
+  onMaxValueChange() {
+    this.maxValueChange.emit(this.maxValue);
+  }
+
+  ngOnInit() {
+    // Optional: Set any initial logic if needed
+  }
+
+  getMinPercent(): number {
+    // Calculate min percent based on current minValue and range
+    return ((this.minValue - this.min) / (this.max - this.min)) * 100;
+  }
+
+  getRangeWidth(): number {
+    // Calculate width based on current minValue and maxValue
+    return ((this.maxValue - this.minValue) / (this.max - this.min)) * 100;
+  }
+
   sideBarItem: string[] = ['On Campus (50)', 'Hybrid (20)', 'E-Learning (120)'];
 
   countries: string[] = [

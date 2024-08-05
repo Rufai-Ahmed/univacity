@@ -1,4 +1,10 @@
-import { Component, AfterViewInit, OnInit, NgZone } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  OnInit,
+  NgZone,
+  HostListener,
+} from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { HeaderComponent } from './header/header.component';
 import { CommonModule, NgOptimizedImage } from '@angular/common';
@@ -27,22 +33,15 @@ import { SidebarToggleService } from './services/sidebar-toggle.service';
 })
 export class AppComponent implements OnInit {
   title = 'Univacity';
-
   selectedFilters: string[] = [];
-
   onFiltersChanged(filters: string[]) {
     this.selectedFilters = filters;
   }
-
   timer: any;
-
   isDarkMode: boolean = false;
-
   toggleDarkMode: (theme: boolean) => void = (theme: boolean) =>
     (this.isDarkMode = theme);
-
   isShow: boolean = false;
-
   constructor(
     private ngZone: NgZone,
     private mobileToggle: SidebarToggleService
@@ -56,11 +55,17 @@ export class AppComponent implements OnInit {
         });
       }, 6000);
     });
+
+    this.mobileToggle.toggle$.subscribe((isVisible) => {
+      this.isShow = isVisible;
+    });
   }
 
   ngOnDestroy() {
     clearInterval(this.timer);
   }
 
-  toggleSidebar = (value: boolean) => this.mobileToggle.toggleSidebar(value);
+  toggleSidebar() {
+    this.mobileToggle.toggleSidebarOff();
+  }
 }

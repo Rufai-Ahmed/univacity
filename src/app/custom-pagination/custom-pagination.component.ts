@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, isPlatformBrowser } from '@angular/common';
 import {
   Component,
   Input,
@@ -7,6 +7,8 @@ import {
   OnInit,
   Renderer2,
   ElementRef,
+  Inject,
+  PLATFORM_ID,
 } from '@angular/core';
 
 @Component({
@@ -17,16 +19,25 @@ import {
   imports: [CommonModule],
 })
 export class CustomPaginationComponent implements OnInit {
-  constructor(private renderer: Renderer2, private el: ElementRef) {}
-
   isDarkMode = false;
+
   @Input() totalItems: number = 0;
   @Input() pageSize: number = 10;
   @Input() currentPage: number = 1;
   @Output() pageChange = new EventEmitter<number>();
 
+  constructor(
+    private renderer: Renderer2,
+    private el: ElementRef,
+    @Inject(PLATFORM_ID) private platformId: Object
+  ) {}
+
   ngOnInit() {
-    this.isDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+    if (isPlatformBrowser(this.platformId)) {
+      this.isDarkMode = window.matchMedia(
+        '(prefers-color-scheme: dark)'
+      ).matches;
+    }
   }
 
   get totalPages(): number {
