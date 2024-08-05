@@ -46,17 +46,19 @@
           [style.left.%]="getMinPercent()"
           [style.width.%]="getRangeWidth()"
         ></div>
+
         <input
           type="range"
-          min="100"
+          min="{{ min }}"
           [max]="max"
           [(ngModel)]="minValue"
           (ngModelChange)="onMinValueChange()"
           class="slider-thumb slider-thumb-min"
         />
+
         <input
           type="range"
-          min="0"
+          min="{{ min }}"
           [max]="max"
           [(ngModel)]="maxValue"
           (ngModelChange)="onMaxValueChange()"
@@ -65,7 +67,7 @@
       </div>
 
       <div
-        class="flex items-center font-medium justify-between px-4 dark:text-dark-text"
+        class="flex items-center font-medium justify-between dark:text-dark-text"
       >
         <p>
           <span class="text-gray-400 dark:text-light-text">$ </span>

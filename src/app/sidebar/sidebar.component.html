@@ -41,40 +41,32 @@
       <div class="custom-slider">
         <div class="slider-track"></div>
         <div
-          class="slider-range px-10"
+          class="slider-range"
           [style.left.%]="getMinPercent()"
           [style.width.%]="getRangeWidth()"
         ></div>
-        <div class="relative">
-          <div
-            class="bg-black dark:bg-dark-background absolute -left-8 z-[50] w-[20px]"
-          >
-            e lekk
-          </div>
-          <input
-            type="range"
-            min="{{ min }}"
-            [max]="max"
-            [(ngModel)]="minValue"
-            (ngModelChange)="onMinValueChange()"
-            class="slider-thumb left-5 slider-thumb-min"
-          />
-        </div>
 
-        <div class="relative">
-          <input
-            type="range"
-            min="{{ min }}"
-            [max]="max"
-            [(ngModel)]="maxValue"
-            (ngModelChange)="onMaxValueChange()"
-            class="slider-thumb right-5 slider-thumb-max"
-          />
-        </div>
+        <input
+          type="range"
+          min="{{ min }}"
+          [max]="max"
+          [(ngModel)]="minValue"
+          (ngModelChange)="onMinValueChange()"
+          class="slider-thumb slider-thumb-min"
+        />
+
+        <input
+          type="range"
+          min="{{ min }}"
+          [max]="max"
+          [(ngModel)]="maxValue"
+          (ngModelChange)="onMaxValueChange()"
+          class="slider-thumb slider-thumb-max"
+        />
       </div>
 
       <div
-        class="flex items-center font-medium justify-between px-4 dark:text-dark-text"
+        class="flex items-center font-medium justify-between dark:text-dark-text"
       >
         <p>
           <span class="text-gray-400 dark:text-light-text">$ </span>

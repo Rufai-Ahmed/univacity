@@ -13,11 +13,9 @@ import { FormsModule } from '@angular/forms';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
-  // Default slider range
   @Input() min: number = 5000;
   @Input() max: number = 58000;
 
-  // Initial thumb values
   minValue: number = 5000;
   maxValue: number = 58000;
 
@@ -32,17 +30,13 @@ export class SidebarComponent {
     this.maxValueChange.emit(this.maxValue);
   }
 
-  ngOnInit() {
-    // Optional: Set any initial logic if needed
-  }
+  ngOnInit() {}
 
   getMinPercent(): number {
-    // Calculate min percent based on current minValue and range
     return ((this.minValue - this.min) / (this.max - this.min)) * 100;
   }
 
   getRangeWidth(): number {
-    // Calculate width based on current minValue and maxValue
     return ((this.maxValue - this.minValue) / (this.max - this.min)) * 100;
   }
 

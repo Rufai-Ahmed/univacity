@@ -24,10 +24,11 @@ export class MobileSiderComponent implements OnInit {
   value: { min: number; max: number } = { min: 5000, max: 5800 };
 
   toggle: boolean = false;
-  @Input() min: number = 0;
-  @Input() max: number = 10000;
-  @Input() minValue: number = 5000;
-  @Input() maxValue: number = 5800;
+  @Input() min: number = 5000;
+  @Input() max: number = 58000;
+
+  minValue: number = 5000;
+  maxValue: number = 58000;
 
   @Output() minValueChange = new EventEmitter<number>();
   @Output() maxValueChange = new EventEmitter<number>();
@@ -44,22 +45,6 @@ export class MobileSiderComponent implements OnInit {
     this.mobileSiderToggle.toggle$.subscribe(
       (isOpen) => (this.toggle = isOpen)
     );
-
-    this.calculateDefaultValues();
-  }
-
-  calculateDefaultValues() {
-    const trackWidth = this.max - this.min;
-
-    this.minValue = Math.round(this.min + 0.15 * trackWidth);
-    this.maxValue = Math.round(this.max - 0.15 * trackWidth);
-
-    if (this.minValue > this.maxValue) {
-      this.minValue = this.maxValue;
-    }
-
-    this.value.min = this.minValue;
-    this.value.max = this.maxValue;
   }
 
   getMinPercent(): number {
