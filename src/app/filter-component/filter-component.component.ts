@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { FilterService } from '../services/filter-service.service';
+import { SidebarToggleService } from '../services/sidebar-toggle.service';
 
 @Component({
   selector: 'app-filter-component',
@@ -16,7 +17,12 @@ export class FilterComponentComponent {
 
   selectedItems: Set<string> = new Set();
 
-  constructor(private filterService: FilterService) {}
+  constructor(
+    private filterService: FilterService,
+    private mobileSiderToggle: SidebarToggleService
+  ) {}
+
+  toggleSideBar = () => this.mobileSiderToggle.toggleSidebar();
 
   toggleItem(item: string) {
     if (this.selectedItems.has(item)) {
@@ -26,6 +32,7 @@ export class FilterComponentComponent {
     }
 
     this.filterService.setFilter(Array.from(this.selectedItems).join(', '));
+    this.toggleSideBar();
   }
 
   isChecked(item: string): boolean {

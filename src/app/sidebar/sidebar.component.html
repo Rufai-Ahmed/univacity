@@ -23,7 +23,9 @@
             (change)="setFilter(item.split('(')[0].trim())"
             class="dark:bg-gray-700 dark:border-gray-600"
           />
-          <label [for]="item" class="dark:text-gray-300">{{ item }}</label>
+          <label [for]="item.split('(')[0].trim()" class="dark:text-gray-300">{{
+            item
+          }}</label>
         </div>
       </div>
     </div>

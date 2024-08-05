@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FilterComponentComponent } from '../filter-component/filter-component.component';
 import { iFilter } from '../../../interfaces';
 import { SidebarToggleService } from '../services/sidebar-toggle.service';
+import { FilterService } from '../services/filter-service.service';
 
 @Component({
   selector: 'app-mobile-sider',
@@ -14,13 +15,25 @@ import { SidebarToggleService } from '../services/sidebar-toggle.service';
 export class MobileSiderComponent implements OnInit {
   toggle: boolean = false;
 
-  constructor(private mobileSiderToggle: SidebarToggleService) {}
+  constructor(
+    private mobileSiderToggle: SidebarToggleService,
+    private filterService: FilterService
+  ) {}
 
   ngOnInit() {
     this.mobileSiderToggle.toggle$.subscribe(
       (isOpen) => (this.toggle = isOpen)
     );
   }
+
+  selectedFilter: string = '';
+
+  setFilter(item: string) {
+    this.selectedFilter = item;
+    this.filterService.setFilter(item);
+    this.toggleSideBar();
+  }
+
   toggleSideBar: () => void = () => this.mobileSiderToggle.toggleSidebar();
 
   sideBarItem: string[] = ['On Campus (50)', 'Hybrid (20)', 'E-Learning (120)'];

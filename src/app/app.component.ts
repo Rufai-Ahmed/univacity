@@ -7,6 +7,7 @@ import { ContentComponent } from './content/content.component';
 import { FooterComponent } from './footer/footer.component';
 import { MobileSiderComponent } from './mobile-sider/mobile-sider.component';
 import { timer } from 'rxjs';
+import { SidebarToggleService } from './services/sidebar-toggle.service';
 
 @Component({
   selector: 'app-root',
@@ -42,7 +43,10 @@ export class AppComponent implements OnInit {
 
   isShow: boolean = false;
 
-  constructor(private ngZone: NgZone) {}
+  constructor(
+    private ngZone: NgZone,
+    private mobileToggle: SidebarToggleService
+  ) {}
 
   ngOnInit() {
     this.ngZone.runOutsideAngular(() => {
@@ -57,4 +61,6 @@ export class AppComponent implements OnInit {
   ngOnDestroy() {
     clearInterval(this.timer);
   }
+
+  toggleSidebar = (value: boolean) => this.mobileToggle.toggleSidebar(value);
 }

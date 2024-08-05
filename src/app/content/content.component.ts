@@ -31,16 +31,12 @@ export class ContentComponent implements OnInit {
   };
 
   constructor(private filterService: FilterService) {}
-
   ngOnInit() {
-    this.filterService.filter$.subscribe((filter) => {
+    this.filterService.filter$.pipe(debounceTime(300)).subscribe((filter) => {
       this.onSearch(filter);
-
-      this.filterService.filter$.pipe(debounceTime(300)).subscribe((filter) => {
-        this.onSearch(filter);
-      });
       this.updatePagedData();
     });
+
     this.updatePagedData();
   }
 

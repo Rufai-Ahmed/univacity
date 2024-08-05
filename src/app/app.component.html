@@ -9,6 +9,7 @@
   </app-header>
 
   <div
+    (click)="toggleSidebar(false)"
     [ngClass]="{
       dark: isDarkMode === true,
       'right-0': isShow,
@@ -33,8 +34,10 @@
       <app-sidebar
         class="hidden lg:block pl-6 xl:pl-0 dark:bg-dark-background dark:text-dark-text"
       ></app-sidebar>
+
       <app-mobile-sider class="lg:hidden z-[40000]"></app-mobile-sider>
       <main
+        (click)="toggleSidebar(false)"
         class="w-full lg:w-[calc(100%-260px)] p-5 md:p-14 dark:bg-dark-background dark:text-dark-text"
       >
         <app-content></app-content>

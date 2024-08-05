@@ -9,7 +9,7 @@ export class SidebarToggleService {
 
   toggle$ = this.toggleSource.asObservable();
 
-  toggleSidebar() {
-    this.toggleSource.next(!this.toggleSource.value);
+  toggleSidebar(value?: boolean) {
+    this.toggleSource.next(value ? value : !this.toggleSource.value);
   }
 }

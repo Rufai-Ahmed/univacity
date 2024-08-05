@@ -9,18 +9,26 @@
       Filter by
     </h2>
 
-    <div class="mt-5 border-b pb-5 dark:border-dark-border">
+    <div class="mt-5 border-b pb-5 border-gray-200 dark:border-gray-600">
       <div class="flex items-center mb-4 justify-between">
-        <p class="font-[600] text-[18px] dark:text-dark-heading">Attendance</p>
-        <i class="fa-solid fa-angle-up text-[12px] dark:text-dark-icon"></i>
+        <p class="font-[600] text-[18px] dark:text-gray-100">Attendance</p>
+        <i class="fa-solid fa-angle-up text-[12px] dark:text-gray-400"></i>
       </div>
 
       <div class="space-y-1">
         <div *ngFor="let item of sideBarItem" class="flex items-center gap-4">
-          <input type="checkbox" [id]="item" class="dark:bg-dark-checkbox" />
-          <label [for]="item" class="dark:text-dark-text">
-            {{ item }}
-          </label>
+          <input
+            type="checkbox"
+            [id]="item.split('(')[0].trim() + 'mb'"
+            [checked]="selectedFilter === item.split('(')[0].trim()"
+            (change)="setFilter(item.split('(')[0].trim())"
+            class="dark:bg-gray-700 dark:border-gray-600"
+          />
+          <label
+            [for]="item.split('(')[0].trim() + 'mb'"
+            class="dark:text-gray-300"
+            >{{ item }}</label
+          >
         </div>
       </div>
     </div>
