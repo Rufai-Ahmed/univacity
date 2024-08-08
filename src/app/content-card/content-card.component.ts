@@ -1,11 +1,11 @@
 import { Component, Input } from '@angular/core';
 import { Card, CARDS } from '../content/content.component';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-content-card',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, NgOptimizedImage],
   templateUrl: './content-card.component.html',
   styleUrl: './content-card.component.scss',
 })

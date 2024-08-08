@@ -10,15 +10,23 @@
       <div class="text-xl dark:block hidden font-bold cursor-pointer">
         <a routerLink="/">
           <img
-            src="/assets/images/logo-white.png"
+            ngSrc="/assets/images/logo-white.png"
             alt="Univacity Logo"
-            class="h-8"
+            class="h-8 w-auto"
+            [width]="100"
+            [height]="100"
           />
         </a>
       </div>
       <div class="text-xl font-bold cursor-pointer dark:hidden">
         <a routerLink="/">
-          <img src="/assets/images/logo.png" alt="Univacity Logo" class="h-8" />
+          <img
+            ngSrc="/assets/images/logo.png"
+            alt="Univacity Logo"
+            class="h-8 w-auto"
+            [width]="100"
+            [height]="100"
+          />
         </a>
       </div>
 
@@ -50,7 +58,13 @@
         <div
           class="flex items-center gap-2 hover:bg-blue-100 duration-300 px-2 py-1 rounded-[30px] cursor-pointer"
         >
-          <img src="/assets/images/person.png" alt="User" class="size-[32px]" />
+          <img
+            ngSrc="/assets/images/person.png"
+            alt="User"
+            [width]="100"
+            [height]="100"
+            class="size-[32px]"
+          />
           <i class="fa-solid fa-angle-down text-[10px]"></i>
         </div>
       </div>
@@ -66,7 +80,13 @@
           *ngFor="let i of otherItems"
           class="capitalize cursor-pointer flex items-center gap-2 dark:text-[#C4C9D4]"
         >
-          <img [src]="i.icon" alt="" class="size-6" />
+          <img
+            [width]="100"
+            [height]="100"
+            [alt]="i.label!"
+            [src]="i.icon!"
+            class="size-6"
+          />
           {{ i.label }}
         </li>
       </ul>

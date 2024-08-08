@@ -1,16 +1,31 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, fakeAsync, tick } from '@angular/core/testing';
+import { FilterService } from './filter-service.service';
 
-import { FilterServiceService } from './filter-service.service';
-
-describe('FilterServiceService', () => {
-  let service: FilterServiceService;
+describe('FilterService', () => {
+  let service: FilterService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
-    service = TestBed.inject(FilterServiceService);
+    TestBed.configureTestingModule({
+      providers: [FilterService],
+    });
+    service = TestBed.inject(FilterService);
   });
 
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
+
+  it('should emit the correct filter value', fakeAsync(() => {
+    const testFilter = 'Test Filter';
+    let emittedValue: string | undefined;
+
+    service.filter$.subscribe((value) => {
+      emittedValue = value;
+    });
+
+    service.setFilter(testFilter);
+    tick();
+
+    expect(emittedValue).toBe(testFilter);
+  }));
 });

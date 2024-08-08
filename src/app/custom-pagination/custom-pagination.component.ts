@@ -61,5 +61,7 @@ export class CustomPaginationComponent {
     if (page >= 1 && page <= this.totalPages) {
       this.pageChange.emit(page);
     }
+
+    console.log(this.pages);
   }
 }

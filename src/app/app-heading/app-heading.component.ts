@@ -1,16 +1,16 @@
 import { Component, Inject, Input, OnInit, PLATFORM_ID } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { FilterService } from '../services/filter-service.service';
-import { isPlatformBrowser } from '@angular/common';
+import { isPlatformBrowser, NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-app-heading',
   standalone: true,
-  imports: [FormsModule],
+  imports: [FormsModule, NgOptimizedImage],
   templateUrl: './app-heading.component.html',
   styleUrls: ['./app-heading.component.scss'],
 })
-export class AppHeadingComponent implements OnInit {
+export class AppHeadingComponent {
   searchTerm: string = '';
 
   constructor(
@@ -38,9 +38,5 @@ export class AppHeadingComponent implements OnInit {
         }
       }
     }
-  }
-
-  ngOnInit() {
-    this.getFilter();
   }
 }
